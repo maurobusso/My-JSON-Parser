@@ -1,0 +1,15 @@
+{
+    "object" : {
+        "key": "value",
+        "key-n": 101,
+        "key-o": {
+          "inner key": "inner value"
+        },
+        "key-l": ["list value"],
+        "false": false
+      },
+    "other" : "thing"  ,
+    "array" : [1, 2, true, { "object" : "object" }],
+    "null" : null,
+    "float": 123.123
+}

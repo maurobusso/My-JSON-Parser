@@ -1,0 +1,14 @@
+{
+  "name": "json-parser",
+  "version": "1.0.0",
+  "description": "https://www.json.org/json-en.html",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
