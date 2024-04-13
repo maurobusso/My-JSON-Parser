@@ -114,7 +114,7 @@ function parseValue(input){
 
 function parseArray(input){
     
-    console.log(`input for the parse arr func`, input)
+    //console.log(`input for the parse arr func`, input)
     let arr = []
     let i = 0
 
@@ -146,25 +146,22 @@ function parseObject(input){
     let i = 0
     
     while ( i < input.length && input[i] !== '}' ) {
+        //console.log(input[i])
         
-        // if(typeof input[i] === 'string' && input[i + 1] === ':' ){        
-        //     const key = input[i]
-        //     i += 2
-        //     const value = parseValue(input.slice(i))
-        //     object[key] = value
-
-            // Parse key-value pairs
-        const keyResult = parseValue(input.slice(i));
-        const valueResult = parseValue(input.slice(i + keyResult.length + 1)); // Skip the key and ':'
-        object[keyResult.value] = valueResult.value;
-        i += keyResult.length + valueResult.length + 1; // Move index by total length
-
-            
+        if(typeof input[i] === 'string' && input[i + 1] === ':' ){        
+            const key = input[i]
+            const value = parseValue(input.slice(i))
+            object[key] = value
+            i += value.length
         }
-        
-        if (input[i] === ',') {
+
+        if(input[i] === ','){
             i++
         }
+
+       i++
+    }
+
     return object
 }
 
