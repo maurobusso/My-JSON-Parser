@@ -20,3 +20,5 @@ Thisa are the main resources I have used to help me build the json parser.
 [Introduction to JSON](https://www.json.org/json-en.html/).
 [Parser Combinators: a Walkthrough](https://hasura.io/blog/parser-combinators-walkthrough/)
 [A gentle introduction to parser combinators - DEV Community](https://dev.to/yelouafi/a-gentle-introduction-to-parser-combinators-21a0)
+
+- Code a JSON Parser according to [this](https://codingchallenges.fyi/challenges/challenge-json-parser/).
