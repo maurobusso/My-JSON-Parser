@@ -93,77 +93,217 @@ function lexerJSON(input) {
 
 function parseValue(input){
     //console.log(input)
+    let current = input[0]
 
-    for(let i = 0; i < input.length; i++){
-
-        if(input[i] === '{'){
-            return parseObject(input.slice(i))
-        }else if(input[i] === '['){
-            return parseArray(input.slice(i))
-        }else if(typeof input[i] === 'string' ||
-                 typeof input[i] === 'number' || 
-                 typeof input[i] === 'boolean' || 
-                 input[i] === null)
-                 {
-            return input[i]
-        }else{
-            throw new Error(`unexpected token: ${input[i]}`)
-        }
+    if(current === '{'){
+        return parseObject(input.slice(1))
+    }else if(current === '['){
+        return parseArray(input.slice(1))
+    }else if(typeof current === 'string' ||
+                typeof current === 'number' || 
+                typeof current === 'boolean' || 
+                current === null )          
+                {
+        return [current, input.slice(1)]
+    }else{
+        throw new Error(`unexpected token: ${current}`)
     }
+    
 }
 
 function parseArray(input){
-    
-    //console.log(`input for the parse arr func`, input)
     let arr = []
-    let i = 0
+    let current = input[0]
 
-    while( i < input.length && input[i] !== ']' ){
+    if(current === ']'){
+        return [arr, input.slice(1)]
+    }
 
-        let parseResult = parseValue(input.slice(i))
-        arr.push(parseResult)   
-        i++
+    while(current !== ']'){
+        let [arrVal, remainingInput] = parseValue(input);
+        arr.push(arrVal);
 
-        if(input[i] === ','){
-            i++
-        } 
-        // else if(input[i] === '['){
-        //     let parseResult = parseValue(input.slice(i))
-        //     arr.push(parseResult)    
-        //     i+= parseResult.length + 2
-        // }else if( input[i] ){
-        //     //let parseResult = parseJSON(input[i])
-        //     arr.push(input[i])
-        //     //i+= parseResult.length
-        // }
-    }    
+        t = remainingInput[0];
+        if (t === ']') {
+            return [arr, remainingInput.slice(1)];
+        } else if (t !== ',') {
+            throw new Error('Expected comma after object in array');
+        }
+
+        input = remainingInput.slice(1);
+    }
     return arr
 }
 
 function parseObject(input){
-    //console.log(`input in parseObject function`, input)
-    let object = {}
-    let i = 0
-    
-    while ( i < input.length && input[i] !== '}' ) {
-        //console.log(input[i])
-        
-        if(typeof input[i] === 'string' && input[i + 1] === ':' ){        
-            const key = input[i]
-            const value = parseValue(input.slice(i))
-            object[key] = value
-            i += value.length
-        }
+    let obj = {}
+    let current = input[0]
 
-        if(input[i] === ','){
-            i++
-        }
-
-       i++
+    if(current === '}'){
+        return [obj, input.slice(1)]
     }
 
-    return object
+    while( input.length > 1 && current !== '}'){
+        
+        let jsonKey = input[0];
+        if (typeof jsonKey === 'string') {
+            input = input.slice(1);
+        } else {
+            throw new Error(`Expected string key, got: ${jsonKey}`);
+        }
+
+        if (input[0] !== ':') {
+            throw new Error(`Expected colon after key in object, got: ${t}`);
+        }
+
+        let [jsonValue, remainingInput] = parseValue(input.slice(1));
+
+        obj[jsonKey] = jsonValue;
+
+        t = remainingInput[0];
+        if (t === '}') {
+            return [obj, remainingInput.slice(1)];
+        } else if (t !== ',') {
+            throw new Error(`Expected comma after pair in object, got: ${t}`);
+        }
+
+        input = remainingInput.slice(1);
+    }
+
+    return obj
 }
+
+
+// pyton code solution //
+
+// function parseArray(input) {
+//     let jsonArray = [];
+
+//     let t = input[0];
+//     if (t === ']') {
+//         return [jsonArray, input.slice(1)];
+//     }
+
+//     while (true) {
+//         let [json, remainingInput] = parseValue(input);
+//         jsonArray.push(json);
+
+//         t = remainingInput[0];
+//         if (t === ']') {
+//             return [jsonArray, remainingInput.slice(1)];
+//         } else if (t !== ',') {
+//             throw new Error('Expected comma after object in array');
+//         }
+
+//         input = remainingInput.slice(1);
+//     }
+
+//     throw new Error('Expected end-of-array bracket');
+// }
+
+// function parseObject(input) {
+//     let jsonObject = {};
+
+//     let t = input[0];
+//     if (t === '}') {
+//         return [jsonObject, input.slice(1)];
+//     }
+
+//     while (true) {
+//         let jsonKey = input[0];
+//         if (typeof jsonKey === 'string') {
+//             input = input.slice(1);
+//         } else {
+//             throw new Error(`Expected string key, got: ${jsonKey}`);
+//         }
+
+//         if (input[0] !== ':') {
+//             throw new Error(`Expected colon after key in object, got: ${t}`);
+//         }
+
+//         let [jsonValue, remainingInput] = parseValue(input.slice(1));
+
+//         jsonObject[jsonKey] = jsonValue;
+
+//         t = remainingInput[0];
+//         if (t === '}') {
+//             return [jsonObject, remainingInput.slice(1)];
+//         } else if (t !== ',') {
+//             throw new Error(`Expected comma after pair in object, got: ${t}`);
+//         }
+
+//         input = remainingInput.slice(1);
+//     }
+
+//     throw new Error('Expected end-of-object bracket');
+// }
+
+// function parseValue(input) {
+//     let t = input[0];
+
+//     if (t === ']') {
+//         return parseArray(input.slice(1));
+//     } else if (t === '}') {
+//         return parseObject(input.slice(1));
+//     } else {
+//         return [t, input.slice(1)];
+//     }
+// }
+
+
+
+// function parseArray(input){
+    
+//     //console.log(`input for the parse arr func`, input)
+//     let arr = []
+//     let i = 0
+
+//     while( i < input.length && input[i] !== ']' ){
+
+//         let parseResult = parseValue(input.slice(i))
+//         arr.push(parseResult)   
+//         i++
+
+//         if(input[i] === ','){
+//             i++
+//         } 
+//         // else if(input[i] === '['){
+//         //     let parseResult = parseValue(input.slice(i))
+//         //     arr.push(parseResult)    
+//         //     i+= parseResult.length + 2
+//         // }else if( input[i] ){
+//         //     //let parseResult = parseJSON(input[i])
+//         //     arr.push(input[i])
+//         //     //i+= parseResult.length
+//         // }
+//     }    
+//     return arr
+// }
+
+// function parseObject(input){
+//     //console.log(`input in parseObject function`, input)
+//     let object = {}
+//     let i = 0
+    
+//     while ( i < input.length && input[i] !== '}' ) {
+//         //console.log(input[i])
+        
+//         if(typeof input[i] === 'string' && input[i + 1] === ':' ){        
+//             const key = input[i]
+//             const value = parseValue(input.slice(i))
+//             object[key] = value
+//             i += value.length
+//         }
+
+//         if(input[i] === ','){
+//             i++
+//         }
+
+//        i++
+//     }
+
+//     return object
+// }
 
 
 
