@@ -1,10 +1,12 @@
 # Json Parser 
 
-My take on [Write Your Own JSON Parser | Coding Challenges](https://codingchallenges.fyi/challenges/challenge-json-parser/) using [Parser combinator](https://en.wikipedia.org/wiki/Parser_combinator) in Haskell
+My take on [Write Your Own JSON Parser | Coding Challenges](https://codingchallenges.fyi/challenges/challenge-json-parser/) 
+using [Parser combinator](https://en.wikipedia.org/wiki/Parser_combinator) by John Crickett using JS
 
 ## How the project works?
 - This project is a script that checks whether an object is a valid "JSON" object or not.
-- There are group of steps (folders) that contain a set of valid and invalid objects, and the script will tell you which one is valid.
+- There are group of steps (folders) that contain a set of valid and invalid objects, 
+and the script will tell you which one is valid.
 
 ## How to run the project
   - Clone the project
