@@ -37,7 +37,8 @@ function run(directoryPath) {
                         const parseOutput = parseValue(lexerOutput)
 
                         // Log the output
-                        console.log('Output for file:', filePath, '\n', parseOutput);
+                        // parseOutput[0] it always return an array of 2 elements 
+                        console.log('Output for file:', filePath, '\n', parseOutput[0]);
                     });
                 }
             });
@@ -47,7 +48,7 @@ function run(directoryPath) {
 
 
 // run("tests/step1")
- run("tests/step2")
+// run("tests/step2")
 // run("tests/step3")
-// run("tests/step4")
+ run("tests/step4")
 // run("tests/step5")
