@@ -100,9 +100,9 @@ function parseValue(input){
     }else if(current === '['){
         return parseArray(input.slice(1))
     }else if(typeof current === 'string' ||
-                typeof current === 'number' || 
-                typeof current === 'boolean' || 
-                current === null )          
+             typeof current === 'number' || 
+             typeof current === 'boolean' || 
+             current === null )          
                 {
         return [current, input.slice(1)]
     }else{
