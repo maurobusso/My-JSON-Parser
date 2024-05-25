@@ -47,7 +47,7 @@ function run(directoryPath) {
 
 
 // run("tests/step1")
-// run("tests/step2")
+ run("tests/step2")
 // run("tests/step3")
- run("tests/step4")
+// run("tests/step4")
 // run("tests/step5")
