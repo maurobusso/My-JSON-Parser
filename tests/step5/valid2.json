@@ -11,5 +11,5 @@
     "other" : "thing"  ,
     "array" : [1, 2, true, { "object" : "object" }],
     "null" : null,
-    "float": 123.123
+    "float": 123
 }
